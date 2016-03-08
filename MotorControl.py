@@ -49,8 +49,8 @@ while (True):
 				speedms = .1
 				degms = 35
 
-			motor1.setSpeed(speed)
-			motor2.setSpeed(speed)
+			motor1.setSpeed((speed/100)*255)
+			motor2.setSpeed((speed/100)*255)
 		
 			if direction == "forward":
 				motor1.run(Adafruit_MotorHAT.FORWARD)
