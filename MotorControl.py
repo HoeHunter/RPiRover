@@ -34,12 +34,9 @@ while (True):
     #get command data
     command = raw_input("\nPlease enter a command:\n ")
     if command == "help":
-        print "Command format (forward/reverse): direction distance(m) speed(25, 50, 75, 100)"
-        print "Example: forward 10 50"
-        print "Command format (left/right): direction angle(degrees) speed(25, 50, 75, 100)"
-        print "Example: left 90 50"
+        print "Basic Movement:\nCommand format (forward/reverse): direction distance(m) speed(25, 50, 75, 100)\nExample: forward 10 50\nCommand format (left/right): direction angle(degrees) speed(25, 50, 75, 100)\nExample: left 90 50"
+        print "Turret pan/tilt:\n Command format (pan left/right): pan left/right angle(degrees)\nExample: pan left 45\nCommand format (tilt up/down): tilt up/down angle(degrees)\nExample: tilt up 30"
         continue
-
 
     elif "turret" in command:
         pan.setSpeed(255)
@@ -48,17 +45,23 @@ while (True):
         direction = command.split(' ')[2]
         angle = int(command.split(' ')[3])
         
-        if movetype == "pan":
+        if movetype == "pan" or "tilt":
             if direction == "right":
                 pantrack = pantrack + angle
             elif direction == "left":
                 pantrack = pantrack - angle
+            elif direction == "up"
+                tilttrack = tilttrack + angle
+            elif direction == "down"
+                tilttrack = tiltrack + angle
             if pantrack > panupperlimit:
                 exceed = pantrack - panupperlimit
                 print "Error: desired amgle exceeds safety parameters by", exceed, "degrees. Aborting."
                 continue
            elif pantrack < panlowerlimit:
-               #START WORKING HERE
+               exceed = -1*(pantrack - panlowerlimit)
+               print "Error: desired amgle exceeds safety parameters by", exceed, "degrees. Aborting."
+               continue 
             degms = 5
             timetd = angle/degms
             totaltime = timetd
@@ -67,6 +70,10 @@ while (True):
                 pan.run(Adafruit_MotorHAT.FORWARD)
             elif direction == "right":
                 pan.run(Adafruit_MotorHAT.BACKWARD)
+            elif direction = "up":
+                tilt.run(Adafruit_MotorHAT.FORWARD)
+            elif direction = "down"
+                tilt.run(Adafruit_MotorHAT.FORWARD)
             while (timetd>.1):
                     time.sleep(.1)
                     timetd=timetd-.1
@@ -75,9 +82,10 @@ while (True):
                     degrem = angle-degms*(totaltime-timetd)
                     print "Time remaining:", timetd, "Degrees:", degrem,
             pan.run(Adafruit_MotorHAT.RELEASE)
+            tilt.run(Adafruit_MotorHAT.RELEASE)
 
 
-    elif "forward" in command or "reverse" in command or "left" in command or "right" in command:		
+    elif "forward" or "reverse" or "left" or "right" in command:		
         #parse command data to variables
         direction = command.split(' ')[0]
         distance = float(command.split(' ')[1])
