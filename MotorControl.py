@@ -11,10 +11,10 @@ mh = Adafruit_MotorHAT(addr=0x60)
 
 # recommended for auto-disabling motors on shutdown!
 def turnOffMotors():
-	mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-	mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-	mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-	mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
+    mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
 
 atexit.register(turnOffMotors)
 #define motors
@@ -73,8 +73,9 @@ while (True):
             timetd = angle/degms
             totaltime = timetd
             degrem = angle 
-           
-           if direction == "left":
+
+            #needs accurate motor direction 
+            if direction == "left":
                 pan.run(Adafruit_MotorHAT.FORWARD)
             elif direction == "right":
                 pan.run(Adafruit_MotorHAT.BACKWARD)
@@ -83,15 +84,15 @@ while (True):
             elif direction == "down":
                 tilt.run(Adafruit_MotorHAT.FORWARD)
            
-           while (timetd>.1):
-                    time.sleep(.1)
-                    timetd=timetd-.1
-                    sys.stdout.flush()
-                    print "\r",
-                    degrem = angle-degms*(totaltime-timetd)
-                    print "Time remaining:", timetd, "Degrees:", degrem,
-           
-           pan.run(Adafruit_MotorHAT.RELEASE)
+            while (timetd>.1):
+                time.sleep(.1)
+                timetd=timetd-.1
+                sys.stdout.flush()
+                print "\r",
+                degrem = angle-degms*(totaltime-timetd)
+                print "Time remaining:", timetd, "Degrees:", degrem,
+            
+            pan.run(Adafruit_MotorHAT.RELEASE)
             tilt.run(Adafruit_MotorHAT.RELEASE)
 
 
@@ -136,9 +137,11 @@ while (True):
                         timetd = distance/speedms
                 elif direction == "left" or direction == "right":
                         timetd = distance/degms
+
                 totaltime = timetd
                 distancerem = distance
                 degrem = distance
+                
                 while (timetd>.1):
                         time.sleep(.1)
                         timetd=timetd-.1
@@ -150,6 +153,7 @@ while (True):
                         elif direction == "left" or direction == "right":
                                 degrem = distance-degms*(totaltime-timetd)
                                 print "Time remaining:", timetd, "Degrees:", degrem,
+                
                 motor1.run(Adafruit_MotorHAT.RELEASE)
                 motor2.run(Adafruit_MotorHAT.RELEASE)
     else:
