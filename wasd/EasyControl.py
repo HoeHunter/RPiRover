@@ -38,7 +38,6 @@ pan = mh.getMotor(1)
 tilt = mh.getMotor(2)
 motor1 = mh.getMotor(3)
 motor2 = mh.getMotor(4)
-
 direction = ""
 while (True):
     if getch() == "w":
@@ -68,3 +67,4 @@ while (True):
     elif getch() == "q":
         print "Terminating"
         exit()
+
