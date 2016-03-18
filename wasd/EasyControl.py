@@ -41,24 +41,48 @@ motor2 = mh.getMotor(4)
 direction = ""
 while (True):
     if getch() == "w":
+        if direction == "reverse":
+            motor1.run(Adafruit_MotorHAT.RELEASE)
+            motor2.run(Adafruit_MotorHAT.RELEASE)
+            print "Stop"
+            direction = "stop"
+            continue
         if direction != "forward":
             print "Going forward"
         direction = "forward"
         motor1.run(Adafruit_MotorHAT.FORWARD)
         motor2.run(Adafruit_MotorHAT.FORWARD)
     elif getch() == "a":
+        if direction == "right":
+            motor1.run(Adafruit_MotorHAT.RELEASE)
+            motor2.run(Adafruit_MotorHAT.RELEASE)
+            print "Stop"
+            continue
+            direction = "stop"
         if direction != "left":
             print "Going left"
         motor1.run(Adafruit_MotorHAT.BACKWARD)
         motor2.run(Adafruit_MotorHAT.FORWARD)
         direction = "left"
     elif getch() == "s":
+        if direction == "forward":
+            motor1.run(Adafruit_MotorHAT.RELEASE)
+            motor2.run(Adafruit_MotorHAT.RELEASE)
+            print "Stop"
+            direction = "stop"
+            continue
         if direction != "reverse":
             print "Going backward"
         motor1.run(Adafruit_MotorHAT.BACKWARD)
         motor2.run(Adafruit_MotorHAT.BACKWARD)
         direction = "reverse"
     elif getch() == "d":
+        if direction == "left":
+            motor1.run(Adafruit_MotorHAT.RELEASE)
+            motor2.run(Adafruit_MotorHAT.RELEASE)
+            print "Stop"
+            direction = "stop"
+            continue
         if direction != "right":
             print "Going right"
         motor1.run(Adafruit_MotorHAT.FORWARD)
