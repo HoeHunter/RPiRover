@@ -39,6 +39,8 @@ tilt = mh.getMotor(2)
 motor1 = mh.getMotor(3)
 motor2 = mh.getMotor(4)
 direction = ""
+
+print "Interface active\nUse keys W,A,S,D to control"
 while (True):
     if getch() == "w":
         if direction == "reverse":
@@ -89,6 +91,7 @@ while (True):
         motor2.run(Adafruit_MotorHAT.BACKWARD)
         direction = "right"
     elif getch() == "q":
-        print "Terminating"
+        print "Terminating motor control interface"
+        subprocess.call("bash /home/pi/Desktop/RPiRover/rover.sh stop", shell=True)
         exit()
 
