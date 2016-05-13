@@ -4,7 +4,8 @@ from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 import time
 import atexit
 import sys 
-import subprocess 
+import subprocess
+import math
 
 # create a default object, no changes to I2C address or frequency
 mh = Adafruit_MotorHAT(addr=0x60)
@@ -99,7 +100,7 @@ while (True):
     elif "forward" or "reverse" or "left" or "right" in command:		
         direction = command.split(' ')[0]
         distance = float(command.split(' ')[1])
-        speed = int(command.split(' ')[2])
+        speed = float(command.split(' ')[2])
         
         if direction == "forward" or "reverse" or "left" or "right":		
                 #define speed (m/s) and (deg/s) - need accurate measurements
@@ -116,8 +117,8 @@ while (True):
                         speedms = .1
                         degms = 35
 
-                motor1.setSpeed((speed/100)*255)
-                motor2.setSpeed((speed/100)*255)
+                motor1.setSpeed(int(math.ceil((speed/100)*255)))
+                motor2.setSpeed(int(math.ceil((speed/100)*255)))
         
                 if direction == "forward":
                         motor1.run(Adafruit_MotorHAT.FORWARD)
